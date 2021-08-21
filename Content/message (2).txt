@@ -1,0 +1,196 @@
+{
+  "blockChecks": [
+    {
+      "accesstype": "CACHEGET",
+      "x": 10.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 1.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 2.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 3.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 4.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 5.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 5.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 5.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 6.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 6.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 6.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 7.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 7.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 7.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 8.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 8.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 8.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEGET",
+      "x": 9.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "WORLDGET",
+      "x": 9.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 9.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    {
+      "accesstype": "CACHEWRITE",
+      "x": 10.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  ]
+}
