@@ -16,6 +16,7 @@ using Voxel_Engine.Utility;
 using Voxel_Engine.GUI;
 using Voxel_Engine.DataHandling;
 using Voxel_Engine.Rendering;
+using Voxel_Editor.Shaders;
 
 namespace Voxel_Editor
 {
@@ -25,40 +26,21 @@ namespace Voxel_Editor
         static double movementSpeed;
         static Vector3i max = new(300);
 
-        static readonly ShaderPass SSAO = new("SSAO", 
-            new Texture[] {
-                new(TextureType.Color,"screenTex"),
-                new(TextureType.Depth,"depthTex")
-            });
         public static void OnLoad()
         {
-            new Camera(new ShaderPassStack(SSAO)).Select();
-            CreateSSAOKernel();
+            ShaderContainer.Init();
+            new Camera(ShaderContainer.PassStack).Select();
 
             UpdateWorld();
 
             Menu.MakeDefaults();
-            UI.IsActive = true;
             UpdateModes();
-        }
-        public static void CreateSSAOKernel()
-        {
-            int SSAOSampleCount = 128;
-            int SSAOKernelBuffer = GL.GenBuffer();
-            SSAO.SetUniform1("SSAOSampleCount", SSAOSampleCount);
-            SSAO.Use();
-            float[] positions = Tools.SpherePoints(SSAOSampleCount);
-            GL.BindBuffer(BufferTarget.ShaderStorageBuffer, SSAOKernelBuffer);
-            GL.BufferData(BufferTarget.ShaderStorageBuffer, sizeof(float) * positions.Length, positions, BufferUsageHint.StaticDraw);
-            GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, 2, SSAOKernelBuffer);
-            GL.BindBuffer(BufferTarget.ShaderStorageBuffer, 0);
         }
         public static void OnUpdate(FrameEventArgs _)
         {
             UpdateControls();
         }
         static readonly Random r = new();
-        static Quaternion cubeRot = Quaternion.Identity;
         public static void UpdateWorld()
         {
 
@@ -69,7 +51,7 @@ namespace Voxel_Editor
             var sizeH = Vector3i.Divide(max, 2);
             MainWorld.ThrowAway();
             //*/
-            
+            /*
             for (int x = 0; x < 1000; x++)
             {
                 for (int z = 0; z < 1000; z++)
@@ -99,63 +81,48 @@ namespace Voxel_Editor
                     }
                 }
             }//*/
+            MapLoader.LoadFile(MainWorld,"Accesses.txt",mode);
 
-            Camera.Main?.LoadWorld(MainWorld);
+            Camera.Main.LoadWorld(MainWorld);
         }
         
         static int mode =1;
+        static int shaderMode = 1;
         static Vector3 post;
         static Vector3 MovSize;
         public static void UpdateControls()
         {
-            post = Camera.Main.Transform.Position;
-            if(Math.Abs(MovSize.X) >= 16 || Math.Abs(MovSize.Y) >= 16 || Math.Abs(MovSize.Z) >= 16)
-            {
-                //UpdateWorld();
-                MovSize = new(0);
-            }
             if (Input.KeyPress(Keys.Escape))
             {
                 UpdateWorld();
-            }
-            if (Input.KeyPress(Keys.F2))
-            {
-                Menu.Default.Debug.Toggle();
             }
             if (Input.KeyPress(Keys.F3))
             {
                 Menu.Default.Debug.Toggle();
             }
-            if (Input.KeyPress(Keys.F4))
+            if(Controls.Move(Keys.F4, Keys.F5, ref shaderMode) |
+               Controls.Move(Keys.F,  Keys.G,  ref mode))
             {
-                mode--;
                 UpdateModes();
                 UpdateWorld();
             }
-            if (Input.KeyPress(Keys.F5))
-            {
-                mode++;
-                UpdateModes();
-                UpdateWorld();
-            }
-            
 
-            if (Input.KeyDown(Keys.R))
-            {
-                NoiseGenerator.Seed = r.Next(int.MaxValue);
-                UpdateWorld();
-            }
-            if (Input.KeyDown(Keys.F))
-            {
-                cubeRot *= new Quaternion(0, 0, 0.1f,1);
-            }
-            if (Input.KeyDown(Keys.G))
-            {
-                cubeRot *= new Quaternion(0, 0,-0.1f, 1);
-            }
+            //if (Input.KeyDown(Keys.R))
+            //{
+            //    NoiseGenerator.Seed = r.Next(int.MaxValue);
+            //    UpdateWorld();
+            //}
+            //if (Input.KeyDown(Keys.F))
+            //{
+            //    cubeRot *= new Quaternion(0, 0, 0.1f,1);
+            //}
+            //if (Input.KeyDown(Keys.G))
+            //{
+            //    cubeRot *= new Quaternion(0, 0,-0.1f, 1);
+            //}
 
-            movementSpeed = Movement.ModifierKey(Keys.LeftShift,0.5,0.02) * Time.DeltaTime;
-            Camera.Main.Transform.Position += Movement.Direction(Camera.Main.Transform.Rotation, (float)movementSpeed);
+            movementSpeed = Controls.ModifierKey(Keys.LeftShift,0.5,0.02) * Time.PhysicsDeltaTime;
+            Camera.Main.Transform.Position += Controls.Direction(Camera.Main.Transform.Rotation, (float)movementSpeed);
 
             MovSize += post - Camera.Main.Transform.Position;
             Vector3 rot = new(Engine.window.MouseState.Delta);
@@ -163,34 +130,14 @@ namespace Voxel_Editor
         }
         public static void UpdateModes()
         {
-            SSAO.SetUniform1("Mode", mode);
             Console.SetCursorPosition(0, 0);
-            Console.Write("Shader Mode: " + mode + "    ");
+            Console.Write("Mode: " + mode      + new string(' ', 3-mode.ToString().Length) + "|");
+            ShaderContainer.SSAO.SetUniform1("Mode", shaderMode);
+            Console.SetCursorPosition(0, 1);
+            Console.Write("shaderMode: " + shaderMode + new string(' ', 3 - shaderMode.ToString().Length) + "|");
         }
         public static void OnFrame(FrameEventArgs _)
         {
-        }
-    }
-    public class Relative
-    {
-        public bool INSIDE, POSITIVE, NEGATIVE;
-
-        public static Relative From(int min, int max, double pos)
-        {
-            var r = new Relative();
-            int posi = (int)Math.Floor(pos);
-            if (max > posi && min > posi)
-            {
-                r.POSITIVE = true;
-                return r;
-            }
-            else if (min < posi && max < posi)
-            {
-                r.NEGATIVE = true;
-                return r;
-            }
-            r.INSIDE = true;
-            return r;
         }
     }
 }

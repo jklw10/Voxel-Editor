@@ -10,7 +10,7 @@ namespace Voxel_Editor
     using OpenTK.Windowing.GraphicsLibraryFramework;
     using OpenTK.Mathematics;
 
-    class Movement
+    class Controls
     {
         public static Vector3 Direction(Quaternion direction, float movementSpeed)
         {
@@ -45,6 +45,20 @@ namespace Voxel_Editor
             }
             output *= movementSpeed;
             return output;
+        }
+        public static bool Move(Keys down, Keys up, ref int value)
+        {
+            if (Input.KeyPress(up))
+            {
+                value++;
+                return true;
+            }
+            if (Input.KeyPress(down))
+            {
+                value--;
+                return true;
+            }
+            return false;
         }
         public static double ModifierKey(Keys key, double down, double up) => Input.KeyDown(key) ? down : up;
     }

@@ -13,7 +13,7 @@ namespace Voxel_Editor
     using Voxel_Engine.DataHandling;
     class MapLoader
     {
-        public static void LoadFile(ChunkWorld world,string path,int mode)
+        public static void LoadFile(IWorld<Voxel_Engine.Rendering.Voxel, Vector3i> world,string path,int mode)
         {
             string loc = Assembly.GetExecutingAssembly().Location;
             string Path =
@@ -30,7 +30,7 @@ namespace Voxel_Editor
             foreach(IntermediaryVoxel v in asd.BlockChecks)
             {
                 if(mode == (int)v.AccessType){
-                    world.Write(new((int)Math.Round(v.x), (int)Math.Round(v.y), (int)Math.Round(v.z)), new(System.Drawing.Color.FromArgb(100,(byte)v.AccessType * 100,100)));
+                    world[new((int)Math.Round(v.x), (int)Math.Round(v.y), (int)Math.Round(v.z))] = new(System.Drawing.Color.FromArgb(100,(byte)v.AccessType * 100,100));
                 }
             }
         }

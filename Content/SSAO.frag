@@ -14,6 +14,7 @@ layout(std430, binding = 2) buffer SSAOKernel
 
 in vec4 gl_FragCoord;
 in vec2 TexCoords;
+
 out vec4 color;
 
 uniform vec2 Resolution;
