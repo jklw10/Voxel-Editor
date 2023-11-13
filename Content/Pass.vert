@@ -1,5 +1,5 @@
 ﻿#version 450
-in int gl_VertexID;
+
 out vec2 TexCoords;
 
 void main()

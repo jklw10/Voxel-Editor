@@ -10,9 +10,9 @@ namespace Voxel_Editor
             Console.WriteLine("Starting editor");
 
            // Engine.Initialize()
-            Engine.window.Load += Game.OnLoad;
-            Engine.window.UpdateFrame += Game.OnUpdate;
-            Engine.window.RenderFrame += Game.OnFrame;
+            Engine.Window.Load += Game.OnLoad;
+            Engine.Window.UpdateFrame += Game.OnUpdate;
+            Engine.Window.RenderFrame += Game.OnFrame;
             Engine.CreateWindow();
         }
     }

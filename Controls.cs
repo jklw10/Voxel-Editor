@@ -9,6 +9,7 @@ namespace Voxel_Editor
     using Voxel_Engine.Utility;
     using OpenTK.Windowing.GraphicsLibraryFramework;
     using OpenTK.Mathematics;
+    using Voxel_Engine.Controls;
 
     class Controls
     {
