@@ -19,7 +19,7 @@ namespace Voxel_Editor
     {
         static readonly IWorld<Voxel,Vector3i> MainWorld = new OctreeWorld(10);
         static double movementSpeed;
-        static Vector3i max = new(500);
+        static Vector3i max = new(100);
         
         public static void OnLoad()
         {
@@ -39,9 +39,9 @@ namespace Voxel_Editor
             {
                 for (int y = 0; y < max.Y; y++)
                 {
-                    float noise =(NoiseGenerator.Noise((x+1000) , (y+1000)+0f) /2+.5f);
-                    float pre1 = (NoiseGenerator.Noise((x+1000) / 100f, (y + 1000) / 100f) / 2 + .5f);
-                    float pre2 = (NoiseGenerator.Noise((x+1000) / (pre1* noise* 10f), (y + 1000) / (pre1* noise*10f)) / 2 + .5f);
+                    float noise =(NoiseGenerator.Noise((x+ max.X) , (y+ max.Y) +0f) /2+.5f);
+                    float pre1 = (NoiseGenerator.Noise((x+ max.X) / 100f, (y + max.Y) / 100f) / 2 + .5f);
+                    float pre2 = (NoiseGenerator.Noise((x+ max.X) / (pre1* noise* 10f), (y + max.Y) / (pre1* noise*10f)) / 2 + .5f);
                     float noise2 = (noise*4) +0.5f-pre2; // SmoothStep(pre1, pre2,);
                     for (int i = 0; i < noise2 * 20; i++)
                     {
@@ -78,7 +78,7 @@ namespace Voxel_Editor
 
 
             Vector3 rot = new(Engine.Window.MouseState.Delta);
-            Camera.Main?.Rotate(rot);
+            Camera.Main?.Transform.Rotate(rot);
         }
         public static void UpdateModes()
         {

@@ -10,12 +10,11 @@ using static Voxel_Engine.Rendering.IGLType;
 static class ShaderContainer
 {
 
-    static readonly ProgramLocation SampleCountLocation = new("SSAOSampleCount");
+    static Uniform SampleCountLocation = new("SSAOSampleCount", new Int1(0));
     static readonly Texture color = new(TextureType.Color4, new("gColor"));
     static readonly Texture position = new(TextureType.Float3, new("gPosition"));
     static readonly Texture normal = new(TextureType.Float3, new("gNormal"));
     static readonly Texture AO = new(TextureType.Float, new("AO"));
-
 
     public static readonly ShaderPass RT = new("Raymarch",
         input: null,
@@ -55,7 +54,8 @@ static class ShaderContainer
         ));
 
         (shader as IRenderable).Use();
-        (shader as IRenderable).SetUniform(new(SampleCountLocation, new Int1(SSAOSampleCount)));
+        SampleCountLocation.value = new Int1(SSAOSampleCount);
+        (shader as IRenderable).SetUniform(SampleCountLocation);
         float[] positions = Tools.SpherePoints(SSAOSampleCount);
         SSAOKernelBuffer.SetData(positions);
         GL.BindBuffer(BufferTarget.ShaderStorageBuffer, 0);
